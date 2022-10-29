@@ -1,16 +1,13 @@
 import { BaseLayout } from '@/components/shared/layouts/BaseLayout';
+import { BaseNavigation } from '@/components/shared/navigations/BaseNavigation';
 import {
   Box,
   chakra,
   Container,
   Flex,
   Heading,
-  HStack,
   Link,
-  List,
-  ListIcon,
   ListItem,
-  Stack,
   Text,
   UnorderedList,
 } from '@chakra-ui/react';
@@ -24,7 +21,7 @@ const ChakraNextImage = chakra(Image, {
 
 export default function Home() {
   return (
-    <BaseLayout>
+    <BaseLayout navigation={<BaseNavigation />}>
       <Container maxW='container.lg' pt={8}>
         <Flex as='header' direction={{ base: 'column', sm: 'row' }} align='center' gap={4}>
           <ChakraNextImage

@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import React, { FC, PropsWithChildren } from 'react';
 
-interface IBaseLayoutProps {}
+interface IBaseLayoutProps {
+  navigation?: React.ReactNode;
+}
 
-export const BaseLayout: FC<PropsWithChildren<IBaseLayoutProps>> = ({ children }) => {
+export const BaseLayout: FC<PropsWithChildren<IBaseLayoutProps>> = ({ children, navigation }) => {
   return (
     <>
-      {/* <header>
-        <nav>Navigation</nav>
-      </header> */}
+      <header>{navigation}</header>
 
       <Box as='main' flex={1}>
         {children}

@@ -13,6 +13,10 @@ const extendedTheme = extendTheme({
         default: 'blue.100',
         _dark: 'blue.800',
       },
+      activeLink: {
+        default: 'blue.600',
+        _dark: 'blue.300',
+      },
     },
   },
 });
