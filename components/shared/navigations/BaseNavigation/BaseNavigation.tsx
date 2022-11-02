@@ -1,10 +1,10 @@
 import { ToggleColorMode } from '@/components/shared/buttons/ToggleColorMode';
-import { Box, chakra, Container, ContainerProps, Link } from '@chakra-ui/react';
+import { Box, chakra, Container, ContainerProps, HTMLChakraProps, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import React, { FC } from 'react';
+import { useSelectedLayoutSegment } from 'next/navigation';
+import { FC } from 'react';
 
-const NavLink = chakra(Link, {
+const NavLinkStyle = chakra('a', {
   baseStyle: {
     p: 2,
     px: 4,
@@ -21,19 +21,29 @@ const NavLink = chakra(Link, {
   },
 });
 
-export const BaseNavigation: FC<ContainerProps> = ({ ...rest }) => {
-  const router = useRouter();
+const NavLink: FC<HTMLChakraProps<'a'>> = ({ href, ...rest }) => {
+  const selectedLayoutSegment = useSelectedLayoutSegment();
+
+  const isActive = `/${selectedLayoutSegment}` === href;
+  const ariaCurrent = isActive ? 'page' : undefined;
 
   return (
+    <NavLinkStyle as={NextLink} href={href} aria-current={ariaCurrent} {...rest}>
+      Home
+    </NavLinkStyle>
+  );
+};
+
+export const BaseNavigation: FC<ContainerProps> = ({ ...rest }) => {
+  return (
     <Container as={'nav'} maxW='container.lg' py={4} display='flex' gap={2} {...rest}>
-      <NextLink href='/' passHref>
-        <NavLink aria-current={router.pathname === '/' ? 'page' : undefined}>Home</NavLink>
-      </NextLink>
-      {/* <NextLink href='/page' passHref>
-        <NavLink aria-current={router.pathname === '/page' ? 'page' : undefined}>
-          Some other page
-        </NavLink>
-      </NextLink> */}
+      <NavLink as={NextLink} href='/'>
+        Home
+      </NavLink>
+
+      <NavLink as={NextLink} href='/about'>
+        About me
+      </NavLink>
 
       <Box flex={1} />
 
